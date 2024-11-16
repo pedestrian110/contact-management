@@ -168,3 +168,20 @@ All contact-related operations are protected and require authentication. A valid
 
 ---
 
+## Challenges and Solutions
+
+### 1. **User Authentication and Token Management**
+   - **Challenge**: Implementing a secure authentication system using JWT and managing the token lifecycle (e.g., expiry, storage) was a key challenge. Ensuring the security of the token during transmission and storage on the client side was also a concern.
+   - **Solution**: I used JWT for secure authentication. The token is generated after a successful login or registration and is stored in `localStorage` for persistence. On the backend, the `authMiddleware` verifies the token on protected routes, ensuring that only authorized users can access their contact data. I also set token expiration to limit the duration of session validity, prompting users to re-login when necessary.
+
+### 2. **CORS Issues Between Frontend and Backend**
+   - **Challenge**: While developing the application, I encountered CORS (Cross-Origin Resource Sharing) issues when trying to make requests from the React frontend to the Express backend. The browser blocked these cross-origin requests due to security restrictions.
+   - **Solution**: I resolved the issue by using the `cors` package on the backend. This allowed me to specify allowed origins (such as the React development server), enabling smooth communication between the frontend and backend. By configuring CORS properly, I was able to ensure that the backend would accept requests from the frontend during development and deployment.
+
+### 3. **Handling Asynchronous Operations for Data Fetching and State Management**
+   - **Challenge**: Dealing with asynchronous operations (like fetching contacts or updating user data) on the frontend and ensuring the state was managed correctly was a significant challenge. It was important to ensure the UI reflected the updated state without unnecessary re-renders.
+   - **Solution**: I used React’s `useState` and `useEffect` hooks for state management and side-effects. All API calls to fetch, update, or delete contact data were handled asynchronously using `async/await`. I also implemented proper error handling to ensure that if the data fetching failed, the user received feedback, and loading states were displayed appropriately to improve the user experience.
+
+These challenges were critical in ensuring the application's functionality, security, and smooth user experience. By solving them, I was able to build a robust, secure, and efficient contact management system.
+
+
